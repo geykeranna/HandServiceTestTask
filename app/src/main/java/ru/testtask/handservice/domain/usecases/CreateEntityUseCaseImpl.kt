@@ -10,6 +10,8 @@ import kotlin.random.Random
 class CreateEntityUseCaseImpl(
     private val repository: CommonRepository
 ): CreateEntityUseCase {
+    private val COUNT_LAST_LIST_SIZE = 3
+
     private fun createCell(): CellState {
         return if (Random.nextBoolean()) CellState.ALIVE_CELL else CellState.DEATH_CELL
     }
@@ -21,15 +23,16 @@ class CreateEntityUseCaseImpl(
 
     private suspend fun handleList(list: List<Cell>): Cell? {
         var newCellState: CellState?
+        val lastList = list.takeLast(COUNT_LAST_LIST_SIZE)
 
-        val isAllAlive = list.takeLast(3).all { item -> item.state == CellState.ALIVE_CELL }
-        val isAllDeath = list.takeLast(3).all { item -> item.state == CellState.DEATH_CELL }
+        val isAllAlive = lastList.all { item -> item.state == CellState.ALIVE_CELL }
+        val isAllDeath = lastList.all { item -> item.state == CellState.DEATH_CELL }
 
         when {
-            isAllAlive -> {
+            isAllAlive && lastList.size >= COUNT_LAST_LIST_SIZE -> {
                 newCellState = CellState.LIFE
             }
-            isAllDeath -> {
+            isAllDeath && lastList.size >= COUNT_LAST_LIST_SIZE -> {
                 val cellId = findLife(list)
                 if(cellId != null) {
                     repository.deleteEntity(cellId)

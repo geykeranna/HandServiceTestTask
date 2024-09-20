@@ -27,9 +27,6 @@ class MainScreenViewModel(
     private fun startLoading() = viewModelScope.launch {
         getAllEntityUseCase.execute().collect { dataList ->
             _data.emit(dataList)
-            when {
-                dataList.isEmpty() -> obtainEvent(Event.OnAddItems)
-            }
         }
     }
 
