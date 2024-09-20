@@ -34,6 +34,7 @@ class CommonRepositoryImpl(
 
     override suspend fun postEntity(cell: Cell): Flow<Boolean> {
         val newValue = CellEntity(
+            id = cell.id,
             state = cell.state.name,
         )
         return try {
@@ -44,13 +45,9 @@ class CommonRepositoryImpl(
         }
     }
 
-    override suspend fun deleteEntity(cell: Cell): Flow<Boolean> {
-        val deleteValue = CellEntity(
-            id = cell.id,
-            state = cell.state.name,
-        )
+    override suspend fun deleteEntity(id: Long): Flow<Boolean> {
         return try {
-            dao.delete(cell = deleteValue)
+            dao.delete(id = id)
             flowOf(true)
         } catch (e: Error){
             flowOf(false)

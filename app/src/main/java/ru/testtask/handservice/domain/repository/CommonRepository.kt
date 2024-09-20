@@ -10,5 +10,5 @@ interface CommonRepository {
 
     suspend fun postEntity(cell: Cell): Flow<Boolean>
 
-    suspend fun deleteEntity(cell: Cell): Flow<Boolean>
+    suspend fun deleteEntity(id: Long): Flow<Boolean>
 }

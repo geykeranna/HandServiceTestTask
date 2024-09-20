@@ -24,6 +24,7 @@ fun CellList(
             .background(Color.Transparent),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp),
+        reverseLayout = true,
     ) {
         items(cells){ cell ->
             CellItem(

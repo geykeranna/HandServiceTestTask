@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import ru.testtask.handservice.domain.models.Cell
 
 interface DeleteEntityUseCase {
-    suspend fun execute(cell: Cell): Flow<Boolean>
+    suspend fun execute(id: Long): Flow<Boolean>
 }

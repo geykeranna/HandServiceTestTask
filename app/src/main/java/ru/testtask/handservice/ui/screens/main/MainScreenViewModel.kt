@@ -1,7 +1,5 @@
 package ru.testtask.handservice.ui.screens.main
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +27,6 @@ class MainScreenViewModel(
     private fun startLoading() = viewModelScope.launch {
         getAllEntityUseCase.execute().collect { dataList ->
             _data.emit(dataList)
-            Log.d("testtest", dataList.toString())
             when {
                 dataList.isEmpty() -> obtainEvent(Event.OnAddItems)
             }

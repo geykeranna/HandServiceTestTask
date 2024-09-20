@@ -14,8 +14,8 @@ interface CellDao {
     @Upsert
     suspend fun insertCell(cell: CellEntity)
 
-    @Delete
-    suspend fun delete(cell: CellEntity)
+    @Query("DELETE FROM $TABLE_DATABASE WHERE id = :id")
+    suspend fun delete(id: Long)
 
     @Query("SELECT * FROM $TABLE_DATABASE")
     fun getAll(): Flow<List<CellEntity>>
