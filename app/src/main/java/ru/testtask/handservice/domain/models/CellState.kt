@@ -20,11 +20,6 @@ enum class CellState(
         description = "Ку-ку!",
         icon = "life"
     ),
-    DEATH(
-        label = "Смерть",
-        description = "Увы и ах!",
-        icon = "death"
-    ),
     DEFAULT (
         label = "Просто клеточка",
         description = "просто существует",
